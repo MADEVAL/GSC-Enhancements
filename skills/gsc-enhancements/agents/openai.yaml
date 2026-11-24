@@ -1,0 +1,6 @@
+interface:
+  display_name: "GSC Enhancements"
+  short_description: "Turn Search Console exports into a ranked fix queue with evidence and a verification protocol."
+  default_prompt: "Use GSC Enhancements on my Search Console export: find the few changes worth making first, show the evidence, and tell me how to verify the result in four weeks."
+policy:
+  allow_implicit_invocation: true

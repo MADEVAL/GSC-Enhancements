@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dev dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements-dev.txt
+
+      - name: Lint
+        run: ruff check .
+
+      - name: Validate skill
+        run: python tests/validate_skill.py
+
+      - name: Compile payload
+        run: python -m compileall -q skills/gsc-enhancements install.py
+
+      - name: Run Python tests
+        run: python -m unittest discover -s tests -p "test_*.py"
+
+      - name: Smoke test the analyzer
+        run: python skills/gsc-enhancements/scripts/analyze_export.py analyze --input tests/fixtures/queries.csv --min-impressions 100 --json
+
+      - name: Check install targets
+        run: python install.py --list
+
+      - name: Check dry run
+        run: python install.py --target project --dry-run

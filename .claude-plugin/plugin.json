@@ -1,0 +1,23 @@
+{
+  "name": "gsc-enhancements",
+  "displayName": "GSC Enhancements",
+  "description": "Turn Google Search Console exports into a ranked fix queue with evidence, estimated click upside and a verification protocol.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Yevhen Leonidov",
+    "url": "https://github.com/MADEVAL"
+  },
+  "homepage": "https://github.com/MADEVAL/GSC-Enhancements",
+  "repository": "https://github.com/MADEVAL/GSC-Enhancements",
+  "license": "MIT",
+  "keywords": [
+    "google-search-console",
+    "gsc",
+    "seo",
+    "search-analytics",
+    "cannibalization",
+    "agent-skills",
+    "opencode"
+  ],
+  "skills": "./skills/gsc-enhancements"
+}

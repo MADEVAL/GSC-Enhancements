@@ -1,0 +1,17 @@
+{
+  "name": "gsc-enhancements",
+  "owner": {
+    "name": "MADEVAL",
+    "url": "https://github.com/MADEVAL"
+  },
+  "plugins": [
+    {
+      "name": "gsc-enhancements",
+      "source": "./",
+      "description": "Turn Google Search Console exports into a ranked fix queue with evidence, estimated click upside and a verification protocol.",
+      "version": "0.1.0",
+      "homepage": "https://github.com/MADEVAL/GSC-Enhancements",
+      "repository": "https://github.com/MADEVAL/GSC-Enhancements"
+    }
+  ]
+}

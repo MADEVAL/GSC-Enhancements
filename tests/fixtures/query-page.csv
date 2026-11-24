@@ -1,0 +1,10 @@
+query,page,clicks,impressions,ctr,position
+gsc export limit,/blog/gsc-limits,95,860,0.1105,11.6
+gsc export limit,/docs/exports,4,140,0.0286,18.2
+gsc export limit,/tools/export,1,40,0.025,24.0
+schema markup test,/tools/schema,48,1210,0.0397,12.1
+schema markup test,/blog/schema-guide,12,310,0.0387,17.4
+seo audit checklist,/blog/seo-audit,112,1840,0.0609,9.4
+seo audit checklist,/blog/audit-guide,90,1400,0.0643,11.1
+technical seo audit,/blog/technical-audit,8,1500,0.0053,6.5
+brand name,/,500,600,0.8333,1.2

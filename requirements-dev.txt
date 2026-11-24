@@ -1,0 +1,2 @@
+# Development dependencies. The skill itself has none.
+ruff>=0.6
