@@ -14,6 +14,7 @@ ROOT = Path(__file__).resolve().parent.parent
 def main() -> int:
     validator = subprocess.run(
         [sys.executable, str(ROOT / "tests" / "validate_skill.py")],
+        check=False,
         cwd=ROOT,
     )
     if validator.returncode != 0:

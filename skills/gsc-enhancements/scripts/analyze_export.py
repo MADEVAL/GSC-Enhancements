@@ -230,7 +230,7 @@ def load_export(path: Path) -> tuple[list[dict], dict | None]:
             continue
         clicks = parse_number(cell(row, mapping.get("clicks")), integer=True)
         if clicks is not None:
-            clicks = int(round(clicks))
+            clicks = round(clicks)
         record = {
             "query": cell(row, mapping.get("query")),
             "page": cell(row, mapping.get("page")),
@@ -278,7 +278,7 @@ def load_curve(path: Path | None) -> dict[int, float]:
 def curve_value(position: float | None, curve: dict[int, float]) -> float | None:
     if position is None:
         return None
-    key = min(max(int(round(position)), 1), 20)
+    key = min(max(round(position), 1), 20)
     return curve.get(key, CTR_FLOOR_POSITION)
 
 
@@ -333,7 +333,7 @@ def row_floor(position: float | None, curve: dict[int, float]) -> int:
     """
     if position is None:
         return 10
-    target = max(3, int(round(position)) - 3)
+    target = max(3, round(position) - 3)
     expected = curve_value(target, curve) or CTR_FLOOR_POSITION
     return max(10, math.ceil(MIN_UPSIDE_CLICKS / expected))
 
@@ -386,7 +386,7 @@ def analyze(records: list[dict], args, curve: dict[int, float]) -> dict:
         floors.append(floor)
         if record["impressions"] < floor:
             continue
-        target = max(3, int(round(position)) - 3)
+        target = max(3, round(position) - 3)
         expected = curve_value(target, effective) or CTR_FLOOR_POSITION
         clicks = record["clicks"]
         estimate = None
@@ -814,24 +814,18 @@ def main(argv: list[str] | None = None) -> int:
         print(f"Anonymized gap: {result['anonymized_gap'] * 100:.1f}% of impressions")
     calibration = result.get("ctr_calibration")
     if calibration:
+        observed = calibration["observed_ctr"] * 100
+        expected = calibration["expected_ctr"] * 100
         print(
-            "CTR calibration: x{factor} (observed {observed:.2f}% vs expected {expected:.2f}% "
-            "at position {position})".format(
-                factor=calibration["factor"],
-                observed=calibration["observed_ctr"] * 100,
-                expected=calibration["expected_ctr"] * 100,
-                position=calibration["average_position"],
-            )
+            f"CTR calibration: x{calibration['factor']} (observed {observed:.2f}% vs "
+            f"expected {expected:.2f}% at position {calibration['average_position']})"
         )
     coverage = result.get("coverage")
     if coverage:
         print(
-            "Sample coverage: {clicks}% of clicks, {impressions}% of impressions "
-            "(site totals from {source})".format(
-                clicks=coverage["clicks_pct"],
-                impressions=coverage["impressions_pct"],
-                source=coverage["source"],
-            )
+            f"Sample coverage: {coverage['clicks_pct']}% of clicks, "
+            f"{coverage['impressions_pct']}% of impressions "
+            f"(site totals from {coverage['source']})"
         )
         if coverage.get("warning"):
             print(f"Warning: {coverage['warning']}; treat the queue as a sample.")

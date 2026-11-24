@@ -49,7 +49,7 @@ REQUIRED_ROOT_FILES = [
     "tests/test_analyze_export.py",
     "tests/test_install.py",
     "tests/test_validate.py",
-    "skills/{}/agents/openai.yaml".format(SKILL_NAME),
+    f"skills/{SKILL_NAME}/agents/openai.yaml",
 ]
 TEXT_SUFFIXES = {".md", ".py", ".json", ".yaml", ".yml", ".txt"}
 SKIP_DIRS = {".git", "__pycache__", ".pytest_cache", ".venv", "venv", "node_modules"}
@@ -75,7 +75,7 @@ def read_text(path: Path) -> str:
 
 
 def parse_frontmatter(text: str) -> tuple[dict[str, str], dict[str, str]]:
-    match = re.match(r"^---\r?\n(.*?)\r?\n---\r?\n", text, re.S)
+    match = re.match(r"^---\r?\n(.*?)\r?\n---\r?\n", text, re.DOTALL)
     if not match:
         return {}, {}
     top: dict[str, str] = {}
@@ -214,7 +214,7 @@ def check_skill() -> None:
     mode_block = (
         text.split("## Modes", 1)[1].split("\n## ", 1)[0] if "## Modes" in text else ""
     )
-    mode_rows = re.findall(r"^\| `([a-z-]+)` \|", mode_block, re.M)
+    mode_rows = re.findall(r"^\| `([a-z-]+)` \|", mode_block, re.MULTILINE)
     if len(mode_rows) < 2:
         fail(f"Modes table must list at least 2 modes, got {len(mode_rows)}")
     if modes.isdigit() and int(modes) != len(mode_rows):
@@ -362,7 +362,7 @@ def check_evals() -> None:
     path = root / "evals" / "cases.md"
     if not path.exists():
         return
-    cases = re.findall(r"^\| E-\d+ \|", read_text(path), re.M)
+    cases = re.findall(r"^\| E-\d+ \|", read_text(path), re.MULTILINE)
     if len(cases) < 3:
         fail(f"evals/cases.md must contain at least 3 cases, got {len(cases)}")
 

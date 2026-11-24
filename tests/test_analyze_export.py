@@ -20,6 +20,7 @@ def run(*args: str) -> dict:
         capture_output=True,
         text=True,
         encoding="utf-8",
+        check=False,
         cwd=ROOT,
     )
     if result.returncode != 0:
@@ -33,6 +34,7 @@ def run_error(*args: str) -> subprocess.CompletedProcess:
         capture_output=True,
         text=True,
         encoding="utf-8",
+        check=False,
         cwd=ROOT,
     )
 
@@ -43,6 +45,7 @@ def run_text(*args: str) -> subprocess.CompletedProcess:
         capture_output=True,
         text=True,
         encoding="utf-8",
+        check=False,
         cwd=ROOT,
     )
 

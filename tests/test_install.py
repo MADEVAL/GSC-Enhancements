@@ -20,6 +20,7 @@ def run(*args: str, cwd: Path) -> subprocess.CompletedProcess:
         capture_output=True,
         text=True,
         encoding="utf-8",
+        check=False,
         cwd=cwd,
     )
 
